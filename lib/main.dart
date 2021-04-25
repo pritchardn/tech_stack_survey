@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'static.dart';
 import 'constants.dart';
 import 'QuestionElements.dart';
 import 'SurveyResponse.dart';
 import 'MaterialColorMaker.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MaterialApp(
     theme: ThemeData(primarySwatch: generateMaterialColor(BRAND_PURPLE), brightness: Brightness.dark),
     home: SurveyStepper(),
   ));
+}
+
+void postResponse(CollectionReference repository, SurveyResponse response) async {
+  await repository.add(response.toJson());
 }
 
 class SurveyStepper extends StatefulWidget {
@@ -20,16 +28,18 @@ class SurveyStepper extends StatefulWidget {
 class _SurveyStepperState extends State<SurveyStepper> {
   int pageNumber = 0;
   SurveyResponse response = new SurveyResponse();
-
+  final CollectionReference repository = FirebaseFirestore.instance.collection("responses");
   @override
   Widget build(BuildContext context) {
     Widget page;
-    if(pageNumber == 2){// QUESTIONS.length){
+    if(pageNumber == QUESTIONS.length){
       page = Question(
         key: Key((-1).toString()),
         onOptionSelected: (answer) => setState((){
-          print("Submitting");
-          // TODO Actually send the data
+          if(answer == "Yes"){
+            print("Submitting");
+            postResponse(repository, response);
+          }
         }),
         question: "Submit?",
         answers: ["Yes", "No"],
