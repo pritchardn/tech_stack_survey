@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+const Color BRAND_PURPLE = Color.fromRGBO(168, 31, 87, 1);
+const Color BRAND_PINK = Color.fromRGBO(205, 140, 167, 1);
+const Color BRAND_ORANGE = Color.fromRGBO(182, 80, 24, 1);
+
 const List<Color> backgroundPalette = [
-  Color.fromRGBO(168, 31, 87, 1),
-  Color.fromRGBO(205, 140, 167, 1),
+  BRAND_PURPLE,
+  BRAND_PINK
 ];
 
 const double ICON_SIZE = 64;
@@ -12,7 +16,7 @@ const double LEFT_INSET = 0.05;
 const double TOP_INSET = 0.05;
 
 const int TEXT_FADE_DURATION = 600;
-const int DOT_MOVE_DURATION = 600;
+const int DOT_MOVE_DURATION = 1600;
 const int TEXT_TRAVEL_DISTANCE = 64;
 
 const List<String> QUESTIONS = [
