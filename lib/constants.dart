@@ -18,6 +18,7 @@ const double TOP_INSET = 0.05;
 const int TEXT_FADE_DURATION = 600;
 const int DOT_MOVE_DURATION = 1600;
 const int TEXT_TRAVEL_DISTANCE = 64;
+const double FONT_SIZE_QUESTION = 26;
 
 const List<String> QUESTIONS = [
   "What do you listen to music with?",
@@ -55,7 +56,7 @@ const List<List<String>> ANSWERS = [
     "GoG",
     "Origin",
     "Xbox",
-    "Platstation",
+    "Playstation",
     "Nintendo",
     "Mobile",
     "Other",

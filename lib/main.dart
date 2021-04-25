@@ -37,7 +37,7 @@ class _SurveyStepperState extends State<SurveyStepper> {
              Line(),
              Terminal(),
              Positioned.fill(
-               left: 32.0 + 8,  // TODO: Remove hard-coding
+               left: ICON_SIZE / 2 + LINE_WIDTH / 2 + DOT_SIZE / 2,  // TODO: Remove hard-coding
                child: AnimatedSwitcher(
                  child: page,
                  duration: Duration(milliseconds: 250),
@@ -104,9 +104,8 @@ class _QuestionState extends State<Question>
           animation: _animation,
           builder: (context, child) {
             return Positioned(
-              left: LEFT_INSET * query.width + ICON_SIZE/2 - LINE_WIDTH,
-              top: minTop +
-                  (startOffset.dy - TEXT_TRAVEL_DISTANCE - (DOT_SIZE/2 + 2)) * (1 - _animation.value),
+              left: LEFT_INSET * query.width + ICON_SIZE/2 - DOT_SIZE/2 + LINE_WIDTH/2,
+              top:  minTop + ((startOffset.dy - minTop) + FONT_SIZE_QUESTION) * (1 - _animation.value) ,
               child: child,
             );
           },
@@ -249,13 +248,12 @@ class _OptionItemState extends State<OptionItem> {
           padding: EdgeInsets.only(left: LEFT_INSET * query.width - DOT_SIZE),
           child: Row(
             children: <Widget>[
-              //SizedBox(width: 26),
               Dot(visible: widget.showDot),
               SizedBox(width: 26),
               Expanded(
                 child: Text(
                   widget.name,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: FONT_SIZE_QUESTION),
                 ),
               )
             ],
