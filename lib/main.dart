@@ -75,6 +75,7 @@ class _QuestionState extends State<Question>
   List<GlobalKey<_ItemFaderState>> keys;
   int selectedOptionKeyIndex;
   AnimationController _animationController;
+  Animation _animation;
 
   @override
   void initState(){
@@ -87,6 +88,10 @@ class _QuestionState extends State<Question>
       vsync: this,
       duration: Duration(milliseconds: DOT_MOVE_DURATION),
     );
+    _animation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut
+    );
     onInit();
   }
 
@@ -96,12 +101,12 @@ class _QuestionState extends State<Question>
       builder: (context) {
         double minTop = TOP_INSET * query.height + ICON_SIZE/2;
         return AnimatedBuilder(
-          animation: _animationController,
+          animation: _animation,
           builder: (context, child) {
             return Positioned(
               left: LEFT_INSET * query.width + ICON_SIZE/2 - LINE_WIDTH,
               top: minTop +
-                  (startOffset.dy - minTop) * (1 - _animationController.value),
+                  (startOffset.dy - TEXT_TRAVEL_DISTANCE - (DOT_SIZE/2 + 2)) * (1 - _animation.value),
               child: child,
             );
           },
@@ -327,8 +332,8 @@ class _ItemFaderState extends State<ItemFader>
 
 class Dot extends StatelessWidget {
   final bool visible;
-
-  const Dot({Key key, this.visible = true}) : super(key: key);
+  final Color color;
+  const Dot({Key key, this.visible = true, this.color = Colors.white}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -337,7 +342,7 @@ class Dot extends StatelessWidget {
       height: DOT_SIZE,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: visible ? Colors.white : Colors.transparent,
+        color: visible ? color : Colors.transparent,
       ),
     );
   }
