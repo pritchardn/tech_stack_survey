@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'constants.dart';
 import 'Static.dart';
@@ -7,7 +9,7 @@ class Question extends StatefulWidget {
   final int number;
   final String question;
   final List<String> answers;
-  final VoidCallback onOptionSelected;
+  final FunctionStringCallback onOptionSelected;
 
   const Question({
     Key key,
@@ -114,8 +116,7 @@ class _QuestionState extends State<Question>
       key.currentState.hide();
       if(keys.indexOf(key) == keyIndex){
         setState(() => selectedOptionKeyIndex = keyIndex);
-
-        animateDot(offset).then((_) => widget.onOptionSelected());
+        animateDot(offset).then((_) => widget.onOptionSelected(widget.answers[selectedOptionKeyIndex-2]));
       }
     }
   }

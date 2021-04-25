@@ -3,9 +3,12 @@ class SurveyResponse{
   List<String> answers;
   String respondantName;
 
-  SurveyResponse({this.respondantName, this.questions, this.answers});
+  SurveyResponse ({this.respondantName = "Dummy"}){
+    questions = [];
+    answers = [];
+  }
 
-  void add_response(String question, String answer){
+  void addResponse(String question, String answer){
     this.questions.add(question);
     this.answers.add(answer);
   }
@@ -25,5 +28,7 @@ class SurveyResponse{
     'answers': answers
   };
 
-
+  String toString(){
+    return questions.length.toString() + " " + answers.length.toString();
+  }
 }
