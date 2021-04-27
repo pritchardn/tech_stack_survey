@@ -24,7 +24,7 @@ class SurveyResponse{
   SurveyResponse.fromJson(Map<String, dynamic> json)
       : respondantName = json['name'],
         questions = json['questions'],
-        time = json['time'],
+        time = Timestamp.fromDate(DateTime.parse(json['time'])),
         answers = json['answers'];
 
   Map<String, dynamic> toJson() => {
