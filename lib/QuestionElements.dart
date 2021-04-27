@@ -2,7 +2,48 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'constants.dart';
-import 'Static.dart';
+import 'OptionItem.dart';
+import 'Dot.dart';
+
+class StepNumber extends StatelessWidget {
+  final int number;
+
+  const StepNumber({Key key, @required this.number}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Size query = MediaQuery.of(context).size;
+    return Padding(
+      padding: EdgeInsets.only(left: LEFT_INSET * query.width + ICON_SIZE, right: 16),
+      child: Text(
+        '0$number',
+        style: TextStyle(
+          fontSize: 64,
+          fontWeight: FontWeight.bold,
+          color: Colors.white.withOpacity(0.5),
+        ),
+      ),
+    );
+  }
+}
+
+class StepQuestion extends StatelessWidget {
+  final String question;
+
+  const StepQuestion({Key key, @required this.question}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Size query = MediaQuery.of(context).size;
+    return Padding(
+      padding: EdgeInsets.only(left: LEFT_INSET * query.width + ICON_SIZE, right: 16),
+      child: Text(
+        question,
+        style: TextStyle(fontSize: 24),
+      ),
+    );
+  }
+}
 
 class Question extends StatefulWidget {
 
@@ -127,93 +168,6 @@ class _QuestionState extends State<Question>
       await Future.delayed(Duration(milliseconds: 40));
       key.currentState.show();
     }
-  }
-
-}
-
-class StepNumber extends StatelessWidget {
-  final int number;
-
-  const StepNumber({Key key, @required this.number}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    Size query = MediaQuery.of(context).size;
-    return Padding(
-      padding: EdgeInsets.only(left: LEFT_INSET * query.width + ICON_SIZE, right: 16),
-      child: Text(
-        '0$number',
-        style: TextStyle(
-          fontSize: 64,
-          fontWeight: FontWeight.bold,
-          color: Colors.white.withOpacity(0.5),
-        ),
-      ),
-    );
-  }
-}
-
-class StepQuestion extends StatelessWidget {
-  final String question;
-
-  const StepQuestion({Key key, @required this.question}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    Size query = MediaQuery.of(context).size;
-    return Padding(
-      padding: EdgeInsets.only(left: LEFT_INSET * query.width + ICON_SIZE, right: 16),
-      child: Text(
-        question,
-        style: TextStyle(fontSize: 24),
-      ),
-    );
-  }
-}
-
-
-class OptionItem extends StatefulWidget {
-  final String name;
-  final void Function(Offset dotOffset) onTap; //Offset dotOffset) onTap;
-  final bool showDot;
-
-  const OptionItem(
-      {Key key, @required this.name, @required this.onTap, this.showDot = true})
-      : super(key: key);
-
-  @override
-  _OptionItemState createState() => _OptionItemState();
-}
-
-class _OptionItemState extends State<OptionItem> {
-  @override
-  Widget build(BuildContext context) {
-    Size query = MediaQuery.of(context).size;
-    return InkWell(
-        onTap: (){
-          RenderBox object = context.findRenderObject();
-          Offset globalPosition = object.localToGlobal(Offset.zero);
-          widget.onTap(globalPosition);
-        },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Padding(
-            padding: EdgeInsets.only(left: LEFT_INSET * query.width - DOT_SIZE),
-            child: Row(
-              children: <Widget>[
-                Dot(visible: widget.showDot),
-                SizedBox(width: 26),
-                Expanded(
-                  child: Text(
-                    widget.name,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: FONT_SIZE_QUESTION),
-                  ),
-                )
-              ],
-            ),
-          ),
-        )
-    );
   }
 }
 
